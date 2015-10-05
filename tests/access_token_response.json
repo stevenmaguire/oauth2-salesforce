@@ -1,0 +1,11 @@
+{
+  "id": "mock_id",
+  "issued_at": "1296458209517",
+  "scope": "mock_scope",
+  "instance_url": "mock_instance",
+  "token_type": "Bearer",
+  "refresh_token": "mock_refresh_token",
+  "id_token": "mock_id_token",
+  "signature": "mock_signature",
+  "access_token": "mock_access_token"
+}
