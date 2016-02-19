@@ -1,5 +1,8 @@
-<?php namespace Stevenmaguire\OAuth2\Client\Provider;
+<?php
 
+namespace Stevenmaguire\OAuth2\Client\Provider;
+
+use League\OAuth2\Client\Grant\AbstractGrant;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
@@ -102,4 +105,11 @@ class Salesforce extends AbstractProvider
     {
         return new SalesforceResourceOwner($response);
     }
+
+    protected function createAccessToken(array $response, AbstractGrant $grant)
+    {
+        return new \Stevenmaguire\OAuth2\Client\Token\AccessToken($response);
+    }
+
+
 }

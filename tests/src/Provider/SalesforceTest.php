@@ -96,6 +96,7 @@ class SalesforceTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($token->getExpires());
         $this->assertEquals('mock_refresh_token', $token->getRefreshToken());
         $this->assertEquals('mock_id', $token->getResourceOwnerId());
+        $this->assertEquals('mock_instance', $token->getInstanceUrl());
     }
 
     public function testUserData()
