@@ -110,6 +110,4 @@ class Salesforce extends AbstractProvider
     {
         return new \Stevenmaguire\OAuth2\Client\Token\AccessToken($response);
     }
-
-
 }
