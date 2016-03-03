@@ -1,5 +1,8 @@
-<?php namespace Stevenmaguire\OAuth2\Client\Provider;
+<?php
 
+namespace Stevenmaguire\OAuth2\Client\Provider;
+
+use League\OAuth2\Client\Grant\AbstractGrant;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
@@ -101,5 +104,20 @@ class Salesforce extends AbstractProvider
     protected function createResourceOwner(array $response, AccessToken $token)
     {
         return new SalesforceResourceOwner($response);
+    }
+
+    /**
+     * Creates an access token from a response.
+     *
+     * The grant that was used to fetch the response can be used to provide
+     * additional context.
+     *
+     * @param  array $response
+     * @param  AbstractGrant $grant
+     * @return AccessToken
+     */
+    protected function createAccessToken(array $response, AbstractGrant $grant)
+    {
+        return new \Stevenmaguire\OAuth2\Client\Token\AccessToken($response);
     }
 }
