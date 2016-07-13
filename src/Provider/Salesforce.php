@@ -2,6 +2,8 @@
 
 namespace Stevenmaguire\OAuth2\Client\Provider;
 
+use Exception;
+use InvalidArgumentException;
 use League\OAuth2\Client\Grant\AbstractGrant;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -19,13 +21,20 @@ class Salesforce extends AbstractProvider
     const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
+     * Base domain used for authentication
+     *
+     * @var string
+     */
+    protected $domain = 'https://login.salesforce.com';
+
+    /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
     public function getBaseAuthorizationUrl()
     {
-        return 'https://login.salesforce.com/services/oauth2/authorize';
+        return $this->domain . '/services/oauth2/authorize';
     }
 
     /**
@@ -35,7 +44,7 @@ class Salesforce extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return 'https://login.salesforce.com/services/oauth2/token';
+        return $this->domain . '/services/oauth2/token';
     }
 
     /**
@@ -61,6 +70,16 @@ class Salesforce extends AbstractProvider
     protected function getDefaultScopes()
     {
         return [];
+    }
+
+    /**
+     * Retrives the currently configured provider domain.
+     *
+     * @return string
+     */
+    public function getDomain()
+    {
+        return $this->domain;
     }
 
     /**
@@ -119,5 +138,25 @@ class Salesforce extends AbstractProvider
     protected function createAccessToken(array $response, AbstractGrant $grant)
     {
         return new \Stevenmaguire\OAuth2\Client\Token\AccessToken($response);
+    }
+
+    /**
+     * Updates the provider domain with a given value.
+     *
+     * @throws  InvalidArgumentException
+     * @param string $domain
+     * @return  Salesforce
+     */
+    public function setDomain($domain)
+    {
+        try {
+            $this->domain = (string) $domain;
+
+            return $this;
+        } catch (Exception $e) {
+            throw new InvalidArgumentException(
+                'Value provided as domain is not a string'
+            );
+        }
     }
 }
