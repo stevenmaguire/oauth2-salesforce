@@ -151,12 +151,12 @@ class Salesforce extends AbstractProvider
     {
         try {
             $this->domain = (string) $domain;
-
-            return $this;
         } catch (Exception $e) {
             throw new InvalidArgumentException(
                 'Value provided as domain is not a string'
             );
         }
+
+        return $this;
     }
 }
