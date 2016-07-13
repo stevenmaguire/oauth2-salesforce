@@ -27,7 +27,8 @@ Usage is the same as The League's OAuth client, using `\Stevenmaguire\OAuth2\Cli
 $provider = new Stevenmaguire\OAuth2\Client\Provider\Salesforce([
     'clientId'          => '{salesforce-client-id}',
     'clientSecret'      => '{salesforce-client-secret}',
-    'redirectUri'       => 'https://example.com/callback-url'
+    'redirectUri'       => 'https://example.com/callback-url',
+    'domain'            => '{custom-salesforce-domain}' // optional, defaults to https://login.salesforce.com
 ]);
 ```
 For further usage of this package please refer to the [core package documentation on "Authorization Code Grant"](https://github.com/thephpleague/oauth2-client#usage).
@@ -50,6 +51,12 @@ if ($existingAccessToken->hasExpired()) {
 
     // Purge old access token and store new access token to your data store.
 }
+```
+
+### Using a custom Salesforce domain
+
+```php
+$provider->setDomain('https://foo-bar.salesforce.com');
 ```
 
 For further usage of this package please refer to the [core package documentation on "Refreshing a Token"](https://github.com/thephpleague/oauth2-client#refreshing-a-token).

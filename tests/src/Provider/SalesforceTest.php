@@ -48,6 +48,44 @@ class SalesforceTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($this->provider->getState());
     }
 
+    public function testGetSetDomain()
+    {
+        $defaultDomain = 'https://login.salesforce.com';
+        $newDomain = 'https://test.salesforce.com';
+
+        $currentDomain = $this->provider->getDomain();
+
+        $this->assertEquals($defaultDomain, $currentDomain);
+
+        $updatedDomain = $this->provider->setDomain($newDomain)->getDomain();
+
+        $this->assertEquals($newDomain, $updatedDomain);
+    }
+
+    public function testSetDomainDuringInstantiation()
+    {
+        $newDomain = 'https://test.salesforce.com';
+        $provider = new \Stevenmaguire\OAuth2\Client\Provider\Salesforce([
+            'clientId' => 'mock_client_id',
+            'clientSecret' => 'mock_secret',
+            'redirectUri' => 'none',
+            'domain' => $newDomain
+        ]);
+
+        $currentDomain = $provider->getDomain();
+
+        $this->assertEquals($newDomain, $currentDomain);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testSetDomainFailsWhenNonStringCastableProvided()
+    {
+        $domain = [];
+
+        $this->provider->setDomain($domain);
+    }
 
     public function testScopes()
     {
