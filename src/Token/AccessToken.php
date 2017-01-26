@@ -49,6 +49,5 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
         return preg_match('/' . self::ORG_ID_PREFIX .  '(\w{12}|\w{15})/', $this->getResourceOwnerId(), $result)
             ? $result[0]
             : null;
-
     }
 }
