@@ -1,7 +1,7 @@
 # Changelog
 All Notable changes to `oauth2-salesforce` will be documented in this file
 
-## 2.1.0 - 2017-02-03
+## 2.0.1 - 2017-02-03
 
 ### Added
 - Support for 12 and 15 character organization ids (thanks @stevenwadejr)
