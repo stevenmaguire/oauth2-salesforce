@@ -93,7 +93,7 @@ class SalesforceTest extends \PHPUnit_Framework_TestCase
 
         $url = $this->provider->getAuthorizationUrl($options);
 
-        $this->assertContains(urlencode(implode(' ', $options['scope'])), $url);
+        $this->assertContains(implode('%20', $options['scope']), $url);
     }
 
     public function testGetAuthorizationUrl()
