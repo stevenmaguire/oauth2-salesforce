@@ -15,6 +15,13 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
      * @var string
      */
     private $instanceUrl;
+    
+    /**
+     * Time when the token was issued
+     *
+     * @var string
+     */
+    private $issuedAt;
 
     /**
      * Constructs an access token.
@@ -27,6 +34,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
         parent::__construct($options);
 
         $this->instanceUrl = $options['instance_url'];
+        $this->issuedAt = $options['issued_at'];
     }
 
     /**
@@ -37,6 +45,16 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
     public function getInstanceUrl()
     {
         return $this->instanceUrl;
+    }
+    
+    /**
+     * Returns time when the Access Token was created as UNIX timestamp
+     *
+     * @return string
+     */
+    public function getIssuedAt()
+    {
+        return $this->issuedAt;
     }
 
     /**
