@@ -69,7 +69,8 @@ class Salesforce extends AbstractProvider
      */
     protected function getDefaultScopes()
     {
-        return [];
+        // refresh_token scope is required for Salesforce to return a refresh_token upon authentication
+        return ['refresh_token'];
     }
 
     /**
