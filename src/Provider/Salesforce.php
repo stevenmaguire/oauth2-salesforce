@@ -106,7 +106,7 @@ class Salesforce extends AbstractProvider
         $statusCode = $response->getStatusCode();
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                isset($data[0]['message']) ? $data[0]['message'] : $response->getReasonPhrase(),
+                isset($data['error_description']) ? $data['error_description'] : $response->getReasonPhrase(),
                 $statusCode,
                 $response
             );
