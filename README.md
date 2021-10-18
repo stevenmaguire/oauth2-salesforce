@@ -42,8 +42,8 @@ $provider = new Stevenmaguire\OAuth2\Client\Provider\Salesforce([
     'redirectUri'       => 'https://example.com/callback-url'
 ]);
 
-// A getAccessTokenFromYourDataStore() example. 
-$existingAccessToken->getAccessToken('password', ['username'=>'USERNAME', 'password' => 'PASSWORD']); 
+// A getAccessTokenFromYourDataStore() example.
+$existingAccessToken = $provider->getAccessToken('password', ['username'=>'USERNAME', 'password' => 'PASSWORD']);
 
 if ($existingAccessToken->hasExpired()) {
     $newAccessToken = $provider->getAccessToken('refresh_token', [
