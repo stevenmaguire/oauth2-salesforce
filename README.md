@@ -42,12 +42,18 @@ $provider = new Stevenmaguire\OAuth2\Client\Provider\Salesforce([
     'redirectUri'       => 'https://example.com/callback-url'
 ]);
 
-// A getAccessTokenFromYourDataStore() example.
-$existingAccessToken = $provider->getAccessToken('password', ['username'=>'USERNAME', 'password' => 'PASSWORD']);
+// If you have a token already saved in your local data store,
+// then create a routine to pull that token from your local data storage.
+$thisAccessToken = getAccessTokenFromYourDataStore();
 
-if ($existingAccessToken->hasExpired()) {
+// If you don't have a pre-saved token, use the Salesforce OAuth API to provide a token.
+if empty($thisAccessToken) {
+    $thisAccessToken = $provider->getAccessToken('password', ['username'=>'USERNAME', 'password' => 'PASSWORD']);
+}
+
+if ($thisAccessToken->hasExpired()) {
     $newAccessToken = $provider->getAccessToken('refresh_token', [
-        'refresh_token' => $existingAccessToken->getRefreshToken()
+        'refresh_token' => $thisAccessToken->getRefreshToken()
     ]);
 
     // Purge old access token and store new access token to your data store.
