@@ -33,30 +33,36 @@ $provider = new Stevenmaguire\OAuth2\Client\Provider\Salesforce([
 ```
 For further usage of this package please refer to the [core package documentation on "Authorization Code Grant"](https://github.com/thephpleague/oauth2-client#usage).
 
-### Refreshing a Token
+### Getting and/or Refreshing a Token
 
 ```php
 $provider = new Stevenmaguire\OAuth2\Client\Provider\Salesforce([
     'clientId'          => '{salesforce-client-id}',
     'clientSecret'      => '{salesforce-client-secret}',
-    'redirectUri'       => 'https://example.com/callback-url'
+    'redirectUri'       => 'https://example.com/callback-url',
 ]);
 
-// If you have a token already saved in your local data store,
-// then create a routine to pull that token from your local data storage.
+//Here are two options for getting the required token.
+
+// Option 1: You have a token already saved in your local data store.
+// Create a routine to pull that token from your local data storage.
 $thisAccessToken = getAccessTokenFromYourDataStore();
 
-// If you don't have a pre-saved token, use the Salesforce OAuth API to provide a token.
+// Option 2: You don't have a pre-saved token or that local storage call failed (e.g. empty($thisAccessToken) ). 
+// Use the Salesforce OAuth API to provide a token good for only this session.
 if empty($thisAccessToken) {
     $thisAccessToken = $provider->getAccessToken('password', ['username'=>'USERNAME', 'password' => 'PASSWORD']);
 }
 
+// Once you have a token you can check if it's expired and refresh
 if ($thisAccessToken->hasExpired()) {
     $newAccessToken = $provider->getAccessToken('refresh_token', [
         'refresh_token' => $thisAccessToken->getRefreshToken()
     ]);
 
-    // Purge old access token and store new access token to your data store.
+    // If using Option 1: Purge old access token and store new access token to your data store.
+    // If using Option 2: $thisAccessToken = $newAccessToken;
+
 }
 ```
 
